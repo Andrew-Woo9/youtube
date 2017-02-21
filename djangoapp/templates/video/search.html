@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<form action="" method="POST">{% csrf_token %}
+    {{ form }}
+    <div><button type="submit">검색</button></div>
+</form>
+
+검색 및 검색결과
+{% for item in items %} 
+    {{ item.video_id }} <br>
+{% endfor %}
+
+</html>
