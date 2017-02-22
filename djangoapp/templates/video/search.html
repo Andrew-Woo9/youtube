@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
 
-</body>
-<form action="" method="POST">{% csrf_token %}
-    {{ form }}
-    <div><button type="submit">검색</button></div>
-</form>
+{% block content %}
 
-검색 및 검색결과
+<div class="search_form">
+    <form action="" method="POST">{% csrf_token %}
+        {{ form }}
+        <button class="btn" type="submit">검색</button>
+    </form>
+</div>
+<div>검색 및 검색결과</div>
+<div>
 {% for item in items %} 
-    {{ item.video_id }} <br>
+<a href="https://youtu.be/{{ item.video_id }}"  >{{ item.title }}</a><br>
 {% endfor %}
 
-</html>
+{% for item in items2 %} 
+<a href="https://youtu.be/{{ item.id.videoId }}"  >{{ item.snippet.title }}</a><br>
+{% endfor %}
+</div>
+{% endblock %}

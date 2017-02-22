@@ -10,17 +10,20 @@ from .forms import searchForm
 
 def search_view(request):
     def get_search_list_from_youtube(keyword):
+
         YOUTUBE_URL = 'https://www.googleapis.com/youtube/v3/search'
         KEY_par = config['youtube']['API_KEY_YOUTUBE']
         PART_Par = 'snippet'
         Q_par = keyword
-        MaxResults = 30
+        MaxResults = 10
+        TYPE_Par = 'video'
 
         params = {
             'key': KEY_par,
             'part': PART_Par,
             'maxResults': MaxResults,
             'q': Q_par,
+            # 'type': TYPE_Par
         }
 
         r = requests.get(YOUTUBE_URL, params=params)
@@ -30,6 +33,10 @@ def search_view(request):
         items = result_dict['items']
 
         for index, item in enumerate(items):
+            # if item['id']['videoId']:
+            #
+            # else:
+            #     video_id = ''
             video_id = item['id']['videoId']
             title = item['snippet']['title']
             channelId = item['snippet']['channelId']
@@ -45,13 +52,14 @@ def search_view(request):
 
         if form.is_valid():
             keyword = request.POST['search_keyword']
-            # items = get_search_list_from_youtube(keyword)
+            items = get_search_list_from_youtube(keyword)
             # for 를 이용하여 items을 돌려줌
             get_search_list_from_youtube(keyword)
-            items = Video.objects.all()
+            # items = Video.objects.all()
 
             context = {
-                'form': items,
+                'form': form,
+                'items2': items,
             }
             return render(request, 'video/search.html', context)
 
