@@ -23,7 +23,7 @@ def search_view(request):
             'part': PART_Par,
             'maxResults': MaxResults,
             'q': Q_par,
-            # 'type': TYPE_Par
+            'type': TYPE_Par
         }
 
         r = requests.get(YOUTUBE_URL, params=params)
